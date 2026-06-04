@@ -1,0 +1,1254 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>cubee | Wear Your Mood</title>
+    <meta
+      name="description"
+      content="Cubee is a moodwear brand turning everyday feelings into quiet, wearable characters."
+    />
+    <style>
+      :root {
+        --cream: #f7f0e4;
+        --paper: #fffaf1;
+        --milk: #fdf7eb;
+        --ink: #281c13;
+        --soft-ink: #5f5145;
+        --muted: #958779;
+        --line: rgba(40, 28, 19, 0.13);
+        --brown: #2a180d;
+        --gold: #ffc62e;
+        --sage: #e6eee1;
+        --mist: #edf2ef;
+        --lilac: #eee8f8;
+        --rose: #f7e4df;
+        --sand: #eee2d1;
+        --shadow: 0 28px 80px rgba(70, 48, 24, 0.13);
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        margin: 0;
+        color: var(--ink);
+        background:
+          radial-gradient(circle at 22% 12%, rgba(255, 198, 46, 0.17), transparent 32%),
+          linear-gradient(120deg, #f8f1e7 0%, #fffaf1 46%, #f3ebdf 100%);
+        font-family:
+          Avenir,
+          "Nunito Sans",
+          "Helvetica Neue",
+          Arial,
+          sans-serif;
+      }
+
+      img {
+        display: block;
+        max-width: 100%;
+      }
+
+      figure {
+        margin: 0;
+      }
+
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+
+      button {
+        font: inherit;
+      }
+
+      .page {
+        min-height: 100vh;
+        overflow: hidden;
+      }
+
+      .wrap {
+        width: min(1420px, calc(100% - 72px));
+        margin: 0 auto;
+      }
+
+      .nav {
+        position: fixed;
+        z-index: 20;
+        inset: 0 0 auto;
+        border-bottom: 1px solid rgba(40, 28, 19, 0.08);
+        background: rgba(252, 247, 238, 0.72);
+        backdrop-filter: blur(18px);
+      }
+
+      .nav-inner {
+        min-height: 76px;
+        display: grid;
+        grid-template-columns: 1fr auto 1fr;
+        align-items: center;
+        gap: 28px;
+      }
+
+      .brand,
+      .nav-actions,
+      .nav-links {
+        display: flex;
+        align-items: center;
+      }
+
+      .brand {
+        gap: 10px;
+        font-size: 28px;
+        font-weight: 950;
+        letter-spacing: -0.03em;
+      }
+
+      .brand img {
+        width: 36px;
+        height: 36px;
+        border-radius: 10px;
+      }
+
+      .nav-links {
+        justify-content: center;
+        gap: clamp(18px, 3vw, 48px);
+        font-size: 14px;
+        font-weight: 800;
+      }
+
+      .nav-actions {
+        justify-content: flex-end;
+        gap: 18px;
+        font-size: 14px;
+        font-weight: 800;
+      }
+
+      .icon-btn {
+        width: 34px;
+        height: 34px;
+        border: 1px solid transparent;
+        border-radius: 50%;
+        display: inline-grid;
+        place-items: center;
+      }
+
+      .hero {
+        padding-top: 76px;
+        display: block;
+        border-bottom: 1px solid var(--line);
+      }
+
+      .hero-left,
+      .hero-right,
+      .collection,
+      .story-section {
+        position: relative;
+      }
+
+      .hero-left > .wrap,
+      .hero-right > .wrap,
+      .story-section > .wrap {
+        width: calc(100% - 72px);
+      }
+
+      .hero-left {
+        min-height: auto;
+        display: grid;
+        align-items: end;
+        padding: clamp(42px, 6vw, 82px) 0 clamp(44px, 7vw, 90px);
+        overflow: hidden;
+      }
+
+      .hero-left::before,
+      .collection::before,
+      .story-section::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        pointer-events: none;
+        background:
+          radial-gradient(circle at 53% 28%, rgba(255, 255, 255, 0.96), transparent 0 5%, rgba(255, 255, 255, 0.44) 6%, transparent 22%),
+          radial-gradient(circle at 50% 30%, rgba(255, 198, 46, 0.18), transparent 0 22%, transparent 39%);
+        opacity: 0.9;
+      }
+
+      .hero-grid {
+        position: relative;
+        z-index: 2;
+        display: grid;
+        grid-template-columns: minmax(310px, 0.8fr) minmax(360px, 1fr) minmax(190px, 0.42fr);
+        gap: clamp(26px, 4vw, 62px);
+        align-items: center;
+      }
+
+      @media (min-width: 1181px) {
+        .hero-left {
+          min-height: calc(100vh - 76px);
+        }
+      }
+
+      .hero-copy {
+        padding: 0;
+      }
+
+      .pill {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        min-height: 34px;
+        padding: 0 15px;
+        border: 1px solid rgba(40, 28, 19, 0.09);
+        border-radius: 999px;
+        background: rgba(40, 28, 19, 0.11);
+        color: rgba(40, 28, 19, 0.62);
+        font-size: 12px;
+        font-weight: 900;
+        letter-spacing: 0.17em;
+        text-transform: uppercase;
+      }
+
+      h1,
+      h2,
+      h3 {
+        margin: 0;
+        font-family: Georgia, "Times New Roman", serif;
+        font-weight: 500;
+        letter-spacing: 0;
+      }
+
+      h1 {
+        max-width: 520px;
+        margin-top: 34px;
+        font-size: clamp(78px, 7vw, 122px);
+        line-height: 0.91;
+      }
+
+      h1 span,
+      h2 span,
+      .gold-dot {
+        color: var(--gold);
+      }
+
+      .hero-copy p,
+      .section-copy p,
+      .story-copy p {
+        margin: 26px 0 0;
+        color: var(--soft-ink);
+        font-size: 17px;
+        line-height: 1.7;
+      }
+
+      .cta-row {
+        display: flex;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 14px;
+        margin-top: 38px;
+      }
+
+      .btn {
+        min-height: 49px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 12px;
+        padding: 0 26px;
+        border: 1px solid rgba(40, 28, 19, 0.16);
+        border-radius: 999px;
+        background: rgba(255, 250, 241, 0.52);
+        color: var(--ink);
+        font-size: 12px;
+        font-weight: 950;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        cursor: pointer;
+        box-shadow: 0 10px 30px rgba(40, 28, 19, 0.06);
+      }
+
+      .btn.dark {
+        background: var(--brown);
+        color: #fff8eb;
+        border-color: var(--brown);
+      }
+
+      .hero-meta {
+        margin-top: 64px;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 15px;
+        color: rgba(40, 28, 19, 0.64);
+        font-size: 12px;
+        font-weight: 900;
+        letter-spacing: 0.17em;
+        text-transform: uppercase;
+      }
+
+      .hero-visual {
+        position: relative;
+        z-index: 2;
+        min-height: 660px;
+        display: grid;
+        place-items: center;
+      }
+
+      .hero-model-card {
+        position: relative;
+        z-index: 2;
+        width: min(86%, 540px);
+        height: min(68vh, 620px);
+        min-height: 540px;
+        overflow: hidden;
+        border: 1px solid rgba(40, 28, 19, 0.09);
+        border-radius: 8px;
+        background: var(--sand);
+        box-shadow: 0 34px 84px rgba(70, 48, 24, 0.15);
+      }
+
+      .hero-model-card > img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: 52% 48%;
+      }
+
+      .hero-expression {
+        position: absolute;
+        left: 18px;
+        top: 18px;
+        z-index: 3;
+        width: 116px;
+        aspect-ratio: 1;
+        display: grid;
+        place-items: center;
+        border: 1px solid rgba(40, 28, 19, 0.1);
+        border-radius: 8px;
+        background: rgba(238, 232, 248, 0.88);
+        box-shadow: 0 18px 44px rgba(70, 48, 24, 0.12);
+        backdrop-filter: blur(12px);
+      }
+
+      .hero-expression img {
+        width: 88px;
+        height: 88px;
+        object-fit: contain;
+      }
+
+      .hero-visual::before,
+      .hero-visual::after {
+        content: "";
+        position: absolute;
+        z-index: 1;
+        border: 1px solid rgba(209, 157, 49, 0.26);
+        border-radius: 50%;
+        transform: rotate(-14deg);
+      }
+
+      .hero-visual::before {
+        width: min(92%, 560px);
+        height: 260px;
+      }
+
+      .hero-visual::after {
+        width: min(78%, 440px);
+        aspect-ratio: 1;
+      }
+
+      .float-mood {
+        position: absolute;
+        width: 86px;
+        aspect-ratio: 1;
+        display: grid;
+        place-items: center;
+        border: 1px solid rgba(40, 28, 19, 0.08);
+        border-radius: 8px;
+        background: rgba(255, 250, 241, 0.7);
+        box-shadow: 0 18px 48px rgba(70, 48, 24, 0.1);
+      }
+
+      .float-mood img {
+        width: 66px;
+        height: 66px;
+        object-fit: contain;
+      }
+
+      .float-mood.one {
+        left: 6%;
+        top: 22%;
+      }
+
+      .float-mood.two {
+        right: 4%;
+        top: 30%;
+        background: var(--lilac);
+      }
+
+      .float-mood.three {
+        left: 18%;
+        bottom: 18%;
+        background: var(--sage);
+      }
+
+      .detector {
+        position: relative;
+        z-index: 4;
+        align-self: center;
+        margin-bottom: 78px;
+        color: var(--soft-ink);
+      }
+
+      .mini-label,
+      .eyebrow {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        color: var(--muted);
+        font-size: 11px;
+        font-weight: 950;
+        letter-spacing: 0.19em;
+        text-transform: uppercase;
+      }
+
+      .detector h3 {
+        margin-top: 10px;
+        font-family: Avenir, "Nunito Sans", Arial, sans-serif;
+        font-size: 18px;
+        font-weight: 950;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+      }
+
+      .face-card {
+        width: 64px;
+        height: 64px;
+        margin-top: 18px;
+        display: grid;
+        place-items: center;
+        border: 2px solid var(--ink);
+        border-radius: 17px;
+        background: rgba(255, 250, 241, 0.68);
+      }
+
+      .face-card img {
+        width: 44px;
+        height: 44px;
+        object-fit: contain;
+      }
+
+      .wave {
+        width: 120px;
+        height: 34px;
+        margin-top: 14px;
+        opacity: 0.48;
+        background:
+          linear-gradient(90deg, transparent 0 3%, var(--muted) 3% 4%, transparent 4% 9%),
+          repeating-linear-gradient(90deg, transparent 0 10px, rgba(40, 28, 19, 0.38) 10px 11px, transparent 11px 18px);
+        clip-path: polygon(0 54%, 8% 45%, 14% 56%, 20% 28%, 29% 69%, 36% 38%, 45% 76%, 52% 30%, 60% 66%, 68% 41%, 76% 62%, 84% 50%, 92% 58%, 100% 49%, 100% 100%, 0 100%);
+      }
+
+      .meter {
+        margin-top: 28px;
+      }
+
+      .meter-row {
+        margin-top: 18px;
+      }
+
+      .meter-row b {
+        display: block;
+        color: var(--muted);
+        font-size: 11px;
+        font-weight: 950;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+      }
+
+      .meter-row span {
+        display: block;
+        margin-top: 5px;
+        color: var(--soft-ink);
+        font-size: 13px;
+        font-weight: 800;
+      }
+
+      .bar {
+        width: 112px;
+        height: 5px;
+        margin-top: 7px;
+        background: rgba(40, 28, 19, 0.11);
+      }
+
+      .bar i {
+        display: block;
+        height: 100%;
+        background: rgba(40, 28, 19, 0.28);
+      }
+
+      .hero-right {
+        min-height: auto;
+        padding: clamp(52px, 7vw, 86px) 0;
+        display: grid;
+        align-items: center;
+        border-left: 0;
+        border-top: 1px solid var(--line);
+        background: rgba(255, 250, 241, 0.56);
+      }
+
+      .moods-intro {
+        display: grid;
+        grid-template-columns: minmax(260px, 0.48fr) minmax(420px, 1fr);
+        gap: clamp(34px, 6vw, 86px);
+        align-items: center;
+      }
+
+      .section-copy h2,
+      .story-copy h2 {
+        margin-top: 14px;
+        font-size: clamp(44px, 4.1vw, 74px);
+        line-height: 0.98;
+      }
+
+      .mood-grid {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 12px;
+      }
+
+      .mood-card {
+        aspect-ratio: 1;
+        padding: 18px 14px 16px;
+        display: grid;
+        grid-template-rows: 1fr auto;
+        justify-items: center;
+        align-items: center;
+        border: 1px solid rgba(40, 28, 19, 0.07);
+        border-radius: 8px;
+        background: var(--paper);
+        box-shadow: 0 18px 44px rgba(65, 45, 22, 0.06);
+      }
+
+      .mood-card:nth-child(2) {
+        background: var(--lilac);
+      }
+
+      .mood-card:nth-child(3) {
+        background: var(--rose);
+      }
+
+      .mood-card:nth-child(4) {
+        background: #eef5f8;
+      }
+
+      .mood-card:nth-child(5) {
+        background: var(--mist);
+      }
+
+      .mood-card:nth-child(6) {
+        background: #f2eadf;
+      }
+
+      .mood-card:nth-child(7) {
+        background: var(--sage);
+      }
+
+      .mood-card:nth-child(8) {
+        background: #fff0bd;
+      }
+
+      .mood-card:nth-child(9) {
+        background: #efedea;
+      }
+
+      .mood-card img {
+        width: min(82%, 116px);
+        max-height: 116px;
+        object-fit: contain;
+        filter: drop-shadow(0 14px 18px rgba(70, 48, 24, 0.08));
+      }
+
+      .mood-card b {
+        color: #25180f;
+        font-size: 12px;
+        font-weight: 950;
+        letter-spacing: 0.12em;
+        text-align: center;
+        text-transform: uppercase;
+      }
+
+      .collection {
+        padding: 76px 0;
+        border-bottom: 1px solid var(--line);
+        background: rgba(255, 250, 241, 0.72);
+        overflow: hidden;
+      }
+
+      .preview-section {
+        position: relative;
+        padding: clamp(70px, 8vw, 112px) 0;
+        border-bottom: 1px solid var(--line);
+        background:
+          radial-gradient(circle at 82% 16%, rgba(255, 198, 46, 0.12), transparent 28%),
+          rgba(255, 250, 241, 0.62);
+      }
+
+      .preview-layout {
+        display: grid;
+        grid-template-columns: minmax(280px, 0.42fr) minmax(460px, 1fr);
+        gap: clamp(34px, 6vw, 86px);
+        align-items: end;
+      }
+
+      .preview-copy {
+        padding-bottom: 22px;
+      }
+
+      .preview-copy p {
+        margin: 24px 0 0;
+        color: var(--soft-ink);
+        font-size: 16px;
+        line-height: 1.7;
+      }
+
+      .model-grid {
+        display: grid;
+        grid-template-columns: 1fr 0.88fr;
+        gap: 14px;
+        align-items: stretch;
+      }
+
+      .model-card {
+        position: relative;
+        min-height: 360px;
+        overflow: hidden;
+        border: 1px solid rgba(40, 28, 19, 0.09);
+        border-radius: 8px;
+        background: var(--sand);
+        box-shadow: 0 28px 72px rgba(70, 48, 24, 0.11);
+      }
+
+      .model-card.large {
+        min-height: 560px;
+      }
+
+      .model-stack {
+        display: grid;
+        gap: 14px;
+      }
+
+      .model-card img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+
+      .model-card.large img {
+        object-position: 52% 50%;
+      }
+
+      .model-card::after {
+        content: attr(data-label);
+        position: absolute;
+        left: 16px;
+        bottom: 16px;
+        min-height: 32px;
+        display: inline-flex;
+        align-items: center;
+        padding: 0 12px;
+        border: 1px solid rgba(40, 28, 19, 0.1);
+        border-radius: 999px;
+        background: rgba(255, 250, 241, 0.78);
+        color: var(--ink);
+        font-size: 10px;
+        font-weight: 950;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        backdrop-filter: blur(12px);
+      }
+
+      .collection-grid {
+        position: relative;
+        z-index: 2;
+        display: grid;
+        grid-template-columns: 280px 1fr;
+        gap: 58px;
+        align-items: start;
+      }
+
+      .product-row,
+      .waitlist-panel {
+        display: grid;
+      }
+
+      .waitlist-panel {
+        gap: 18px;
+        padding: clamp(28px, 5vw, 54px);
+        border: 1px solid rgba(40, 28, 19, 0.1);
+        border-radius: 8px;
+        background: rgba(255, 250, 241, 0.78);
+        box-shadow: var(--shadow);
+      }
+
+      .waitlist-form {
+        display: grid;
+        grid-template-columns: 1fr 1fr auto;
+        gap: 12px;
+      }
+
+      .waitlist-form label {
+        display: grid;
+        gap: 8px;
+        color: var(--muted);
+        font-size: 11px;
+        font-weight: 950;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+      }
+
+      .waitlist-form input {
+        width: 100%;
+        min-height: 52px;
+        padding: 0 16px;
+        border: 1px solid rgba(40, 28, 19, 0.15);
+        border-radius: 999px;
+        background: #fffaf1;
+        color: var(--ink);
+        font: inherit;
+      }
+
+      .waitlist-form input::placeholder {
+        color: rgba(95, 81, 69, 0.55);
+      }
+
+      .waitlist-form .btn {
+        align-self: end;
+        border: 0;
+      }
+
+      .waitlist-note {
+        margin: 0;
+        color: var(--soft-ink);
+        font-size: 13px;
+        line-height: 1.6;
+      }
+
+      .waitlist-proof {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        padding-top: 8px;
+      }
+
+      .proof-chip {
+        min-height: 36px;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 0 13px;
+        border: 1px solid rgba(40, 28, 19, 0.1);
+        border-radius: 999px;
+        background: rgba(255, 250, 241, 0.74);
+        color: var(--soft-ink);
+        font-size: 12px;
+        font-weight: 900;
+      }
+
+      .proof-chip img {
+        width: 24px;
+        height: 24px;
+        object-fit: contain;
+      }
+
+      .signup-success {
+        display: none;
+        padding: 18px 20px;
+        border: 1px solid rgba(40, 28, 19, 0.12);
+        border-radius: 8px;
+        background: var(--sage);
+        color: var(--ink);
+        font-weight: 900;
+      }
+
+      .waitlist-panel.is-complete .signup-success {
+        display: block;
+      }
+
+      .story-section {
+        min-height: 520px;
+        border-bottom: 1px solid var(--line);
+        background: rgba(248, 241, 230, 0.58);
+        overflow: hidden;
+      }
+
+      .story-band {
+        position: relative;
+        z-index: 2;
+        padding: clamp(72px, 9vw, 126px) 0;
+        display: grid;
+        align-items: center;
+      }
+
+      .story-inner {
+        display: grid;
+        grid-template-columns: minmax(300px, 0.72fr) minmax(260px, 0.46fr) minmax(180px, 0.28fr);
+        gap: clamp(28px, 5vw, 72px);
+        align-items: center;
+      }
+
+      .glow-cube {
+        justify-self: center;
+        width: min(250px, 36vw);
+        filter: drop-shadow(0 0 42px rgba(255, 198, 46, 0.42));
+      }
+
+      .story-link {
+        justify-self: end;
+        align-self: center;
+        font-size: 12px;
+        font-weight: 950;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+      }
+
+      .footer {
+        padding: 34px 0;
+        color: rgba(40, 28, 19, 0.62);
+        font-size: 12px;
+        font-weight: 900;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+      }
+
+      .footer .wrap {
+        display: flex;
+        justify-content: space-between;
+        gap: 20px;
+      }
+
+      @media (max-width: 1480px) {
+        .hero-grid {
+          grid-template-columns: minmax(280px, 0.8fr) minmax(340px, 1fr);
+        }
+
+        .detector {
+          position: absolute;
+          right: 0;
+          bottom: 34px;
+          width: 180px;
+          padding: 22px;
+          border: 1px solid var(--line);
+          border-radius: 8px;
+          background: rgba(255, 250, 241, 0.74);
+          backdrop-filter: blur(12px);
+        }
+      }
+
+      @media (max-width: 1180px) {
+        .hero-right {
+          min-height: auto;
+          border-left: 0;
+          border-top: 1px solid var(--line);
+        }
+
+        .moods-intro {
+          grid-template-columns: 0.7fr 1fr;
+        }
+
+      }
+
+      @media (max-width: 860px) {
+        .wrap {
+          width: min(100% - 34px, 680px);
+        }
+
+        .nav-inner {
+          grid-template-columns: 1fr auto;
+        }
+
+        .nav-links {
+          display: none;
+        }
+
+        .hero-left {
+          min-height: auto;
+          padding: 42px 0 28px;
+        }
+
+        .hero-grid,
+        .moods-intro,
+        .preview-layout,
+        .collection-grid,
+        .story-inner {
+          grid-template-columns: 1fr;
+        }
+
+        .hero-copy {
+          padding-bottom: 0;
+        }
+
+        h1 {
+          font-size: clamp(64px, 18vw, 94px);
+        }
+
+        .hero-visual {
+          min-height: 420px;
+        }
+
+        .hero-model-card {
+          width: min(100%, 440px);
+          height: 460px;
+          min-height: 0;
+        }
+
+        .hero-expression {
+          width: 96px;
+        }
+
+        .hero-expression img {
+          width: 72px;
+          height: 72px;
+        }
+
+        .detector {
+          position: relative;
+          right: auto;
+          bottom: auto;
+          width: auto;
+          margin: 0;
+          display: grid;
+          grid-template-columns: auto 1fr;
+          column-gap: 18px;
+        }
+
+        .meter {
+          margin-top: 0;
+        }
+
+        .mood-grid {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+
+        .waitlist-form {
+          grid-template-columns: 1fr;
+        }
+
+        .model-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .model-card,
+        .model-card.large {
+          min-height: 420px;
+        }
+
+        .story-link {
+          justify-self: start;
+        }
+
+        .footer .wrap {
+          flex-direction: column;
+        }
+      }
+
+      @media (max-width: 560px) {
+        .nav-actions a:first-child,
+        .cart {
+          display: none;
+        }
+
+        .brand {
+          font-size: 24px;
+        }
+
+        .hero {
+          padding-top: 70px;
+        }
+
+        .hero-meta {
+          margin-top: 34px;
+        }
+
+        .hero-right {
+          padding: 42px 0;
+        }
+
+        .mood-grid {
+          gap: 8px;
+        }
+
+        .mood-card {
+          padding: 12px 8px;
+        }
+
+        .mood-card b {
+          font-size: 10px;
+        }
+
+        .preview-section,
+        .collection,
+        .story-band {
+          padding: 52px 0;
+        }
+
+        .model-card,
+        .model-card.large {
+          min-height: 320px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main class="page" id="top">
+      <nav class="nav" aria-label="Main navigation">
+        <div class="wrap nav-inner">
+          <a class="brand" href="#top" aria-label="cubee home">
+            <img src="assets/logo/cubee-primary-logo.png" alt="" />
+            cubee
+          </a>
+          <div class="nav-links">
+            <a href="#waitlist">Waitlist</a>
+            <a href="#moods">Moods</a>
+            <a href="#preview">Preview</a>
+            <a href="#about">About</a>
+          </div>
+          <div class="nav-actions">
+            <a href="#waitlist">Launching 2026</a>
+            <a class="btn dark" href="#waitlist">Join Waitlist</a>
+          </div>
+        </div>
+      </nav>
+
+      <section class="hero" aria-labelledby="hero-title">
+        <div class="hero-left">
+          <div class="wrap hero-grid">
+            <div class="hero-copy">
+              <span class="pill">Moodwear</span>
+              <h1 id="hero-title">Wear Your Mood<span>.</span></h1>
+              <p>
+                A moodwear brand in progress, turning everyday feelings into
+                quiet little characters. Join early and help shape the first
+                drop.
+              </p>
+              <div class="cta-row">
+                <a class="btn dark" href="#waitlist">Join Waitlist &rarr;</a>
+                <a class="btn" href="#moods">Explore Moods</a>
+              </div>
+              <div class="hero-meta">
+                <span>Est. 2026</span>
+                <span class="gold-dot">+</span>
+                <span>Moodwear</span>
+                <span class="gold-dot">+</span>
+                <span>Wear your mood.</span>
+              </div>
+            </div>
+
+            <div class="hero-visual" aria-label="Cubee launch preview">
+              <div class="hero-model-card">
+                <img src="assets/lifestyle/hero-model.png" alt="Model wearing a blue Cubee Still Loading tee" />
+                <span class="hero-expression">
+                  <img src="assets/moods/02-still-loading.png" alt="Still Loading Cubee expression" />
+                </span>
+              </div>
+            </div>
+
+            <aside class="detector" aria-label="Mood detected panel">
+              <div>
+                <span class="mini-label">Mood detected</span>
+                <h3>Still Loading</h3>
+                <div class="face-card">
+                  <img src="assets/faces/loading.svg" alt="" />
+                </div>
+                <div class="wave" aria-hidden="true"></div>
+              </div>
+              <div class="meter">
+                <div class="meter-row">
+                  <b>Battery</b>
+                  <span>64%</span>
+                  <div class="bar"><i style="width: 64%"></i></div>
+                </div>
+                <div class="meter-row">
+                  <b>Social Energy</b>
+                  <span>38%</span>
+                  <div class="bar"><i style="width: 38%"></i></div>
+                </div>
+                <div class="meter-row">
+                  <b>Overthinking</b>
+                  <span>31%</span>
+                  <div class="bar"><i style="width: 31%"></i></div>
+                </div>
+              </div>
+            </aside>
+          </div>
+        </div>
+
+        <div class="hero-right" id="moods">
+          <div class="wrap moods-intro">
+            <div class="section-copy">
+              <span class="eyebrow">Explore the feelings <span class="gold-dot">+</span></span>
+              <h2>The moods<span>.</span></h2>
+              <p>
+                We all have them. Some loud, some soft. All real. Find yours,
+                wear it proud.
+              </p>
+              <div class="cta-row">
+                <a class="btn dark" href="#waitlist">Vote your mood &rarr;</a>
+              </div>
+            </div>
+
+            <div class="mood-grid" aria-label="Cubee moods">
+              <article class="mood-card">
+                <img src="assets/moods/04-all-good.png" alt="" />
+                <b>I'm Fine</b>
+              </article>
+              <article class="mood-card">
+                <img src="assets/moods/02-still-loading.png" alt="" />
+                <b>Still Loading</b>
+              </article>
+              <article class="mood-card">
+                <img src="assets/moods/03-low-battery.png" alt="" />
+                <b>Low Battery 5%</b>
+              </article>
+              <article class="mood-card">
+                <img src="assets/moods/06-overthinking.png" alt="" />
+                <b>Overthinking Again</b>
+              </article>
+              <article class="mood-card">
+                <img src="assets/moods/05-social-battery.png" alt="" />
+                <b>Social Battery 0%</b>
+              </article>
+              <article class="mood-card">
+                <img src="assets/moods/01-not-today.png" alt="" />
+                <b>Not Today</b>
+              </article>
+              <article class="mood-card">
+                <img src="assets/moods/13-touch-grass.png" alt="" />
+                <b>Touch Grass</b>
+              </article>
+              <article class="mood-card">
+                <img src="assets/moods/12-caffeine.png" alt="" />
+                <b>Caffeine 100%</b>
+              </article>
+              <article class="mood-card">
+                <img src="assets/moods/11-do-not-disturb.png" alt="" />
+                <b>Do Not Disturb</b>
+              </article>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="preview-section" id="preview" aria-labelledby="preview-title">
+        <div class="wrap preview-layout">
+          <div class="section-copy preview-copy">
+            <span class="eyebrow">First look <span class="gold-dot">+</span></span>
+            <h2 id="preview-title">Moodwear in progress<span>.</span></h2>
+            <p>
+              These are early visual mockups for the Cubee world: soft tees,
+              quiet character placement, and everyday moods made wearable.
+              Nothing is for sale yet.
+            </p>
+            <div class="cta-row">
+              <a class="btn dark" href="#waitlist">Join for launch updates &rarr;</a>
+            </div>
+          </div>
+
+          <div class="model-grid" aria-label="Cubee model previews">
+            <figure class="model-card large" data-label="Early mockup">
+              <img src="assets/lifestyle/lead-model.png" alt="Model wearing a lavender Cubee Do Not Disturb tee" />
+            </figure>
+            <div class="model-stack">
+              <figure class="model-card" data-label="Mood detail">
+                <img src="assets/lifestyle/overthinking-model.png" alt="Model wearing a dark Cubee moodwear tee" />
+              </figure>
+              <figure class="model-card" data-label="Soft drop direction">
+                <img src="assets/lifestyle/weekend-model.png" alt="Model wearing a navy Cubee moodwear tee" />
+              </figure>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="collection" id="waitlist" aria-labelledby="waitlist-title">
+        <div class="wrap collection-grid">
+          <div class="section-copy">
+            <span class="eyebrow">Early access <span class="gold-dot">+</span></span>
+            <h2 id="waitlist-title">Join the waitlist<span>.</span></h2>
+            <p>
+              Cubee is not selling yet. We are collecting early supporters,
+              mood votes, and feedback before the first launch.
+            </p>
+            <div class="cta-row">
+              <a class="btn" href="#moods">See the moods &rarr;</a>
+            </div>
+          </div>
+
+          <div class="waitlist-panel">
+            <form class="waitlist-form" id="waitlistForm">
+              <label>
+                Name
+                <input id="nameInput" name="name" type="text" placeholder="What should we call you?" autocomplete="name" required />
+              </label>
+              <label>
+                Email
+                <input id="emailInput" name="email" type="email" placeholder="you@email.com" autocomplete="email" required />
+              </label>
+              <button class="btn dark" type="submit">Reserve Spot &rarr;</button>
+            </form>
+            <p class="waitlist-note">
+              No checkout, no cart, no spam. Just early access, launch updates,
+              and a chance to help choose which Cubee moods come first.
+            </p>
+            <div class="waitlist-proof" aria-label="Launch signals">
+              <span class="proof-chip"><img src="assets/moods/04-all-good.png" alt="" /> Early access</span>
+              <span class="proof-chip"><img src="assets/moods/06-overthinking.png" alt="" /> Mood voting</span>
+              <span class="proof-chip"><img src="assets/moods/12-caffeine.png" alt="" /> Launch notes</span>
+            </div>
+            <div class="signup-success" id="signupSuccess">
+              You are on the Cubee waitlist. We saved this locally for the mockup.
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="story-section" id="about" aria-label="Cubee mood system">
+        <div class="story-band">
+          <div class="wrap story-inner">
+            <div class="story-copy">
+              <h2>More than a brand. It&rsquo;s a mood system<span>.</span></h2>
+              <p>
+                Cubee is building a world where feelings become characters, and
+                characters become culture. Welcome to the moodverse.
+              </p>
+            </div>
+            <img class="glow-cube" src="assets/moods/04-all-good.png" alt="Happy Cubee character" />
+            <a class="story-link" href="#waitlist">Join early &rarr;</a>
+          </div>
+        </div>
+      </section>
+
+      <footer class="footer" id="journal">
+        <div class="wrap">
+          <span>cubee moodwear</span>
+          <span>Est. 2026 + Wear your mood.</span>
+        </div>
+      </footer>
+    </main>
+    <script>
+      const waitlistForm = document.querySelector("#waitlistForm");
+      const waitlistPanel = document.querySelector(".waitlist-panel");
+      const signupSuccess = document.querySelector("#signupSuccess");
+
+      waitlistForm?.addEventListener("submit", (event) => {
+        event.preventDefault();
+        const name = document.querySelector("#nameInput").value.trim();
+        signupSuccess.textContent = name
+          ? `${name}, you're on the Cubee waitlist. We saved this locally for the mockup.`
+          : "You're on the Cubee waitlist. We saved this locally for the mockup.";
+        waitlistPanel.classList.add("is-complete");
+      });
+    </script>
+  </body>
+</html>
