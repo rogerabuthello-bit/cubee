@@ -1237,16 +1237,47 @@
       </footer>
     </main>
     <script>
+      const WAITLIST_ENDPOINT = "";
       const waitlistForm = document.querySelector("#waitlistForm");
       const waitlistPanel = document.querySelector(".waitlist-panel");
       const signupSuccess = document.querySelector("#signupSuccess");
 
-      waitlistForm?.addEventListener("submit", (event) => {
+      waitlistForm?.addEventListener("submit", async (event) => {
         event.preventDefault();
         const name = document.querySelector("#nameInput").value.trim();
-        signupSuccess.textContent = name
-          ? `${name}, you're on the Cubee waitlist. We saved this locally for the mockup.`
-          : "You're on the Cubee waitlist. We saved this locally for the mockup.";
+        const email = document.querySelector("#emailInput").value.trim();
+        const payload = {
+          name,
+          email,
+          mood: "Still Loading",
+          sourcePage: window.location.href,
+          userAgent: navigator.userAgent
+        };
+
+        if (!WAITLIST_ENDPOINT) {
+          signupSuccess.textContent = "Google Sheet is ready. Add the Apps Script web app URL to finish saving signups.";
+          waitlistPanel.classList.add("is-complete");
+          return;
+        }
+
+        try {
+          await fetch(WAITLIST_ENDPOINT, {
+            method: "POST",
+            mode: "no-cors",
+            headers: {
+              "Content-Type": "text/plain;charset=utf-8"
+            },
+            body: JSON.stringify(payload)
+          });
+
+          signupSuccess.textContent = name
+            ? `${name}, you're on the Cubee waitlist.`
+            : "You're on the Cubee waitlist.";
+          waitlistForm.reset();
+        } catch (error) {
+          signupSuccess.textContent = "Something went wrong. Please try joining again.";
+        }
+
         waitlistPanel.classList.add("is-complete");
       });
     </script>
